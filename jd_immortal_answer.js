@@ -1,3 +1,4 @@
+
 const $ = new Env('京东神仙书院答题');
 
 const notify = $.isNode() ? require('./sendNotify') : '';
