@@ -1,3 +1,30 @@
+/*
+京东神仙书院
+活动时间:2021-1-20至2021-2-5
+增加自动积分兑换京豆(条件默认为：至少700积分，1.4倍率)
+暂不加入品牌会员，需要自行填写坐标，用于做逛身边好店任务
+环境变量：JD_IMMORTAL_LATLON(经纬度)
+示例：JD_IMMORTAL_LATLON={"lat":33.1, "lng":118.1}
+boxjs IMMORTAL_LATLON
+活动入口：京东APP我的-神仙书院
+地址：https://h5.m.jd.com//babelDiy//Zeus//4XjemYYyPScjmGyjej78M6nsjZvj//index.html?babelChannel=ttt9
+已支持IOS双京东账号,Node.js支持N个京东账号
+脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+============Quantumultx===============
+[task_local]
+#京东神仙书院
+20 8,12,22 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_immortal.js, tag=京东神仙书院, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true
+
+================Loon==============
+[Script]
+cron "20 8,12,22 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_immortal.js, tag=京东神仙书院
+
+===============Surge=================
+京东神仙书院 = type=cron,cronexp="20 8,12,22 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_immortal.js
+
+============小火箭=========
+京东神仙书院 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_immortal.js, cronexpr="20 8,12,22 * * *", timeout=3600, enable=true
+ */
 const $ = new Env('京东神仙书院');
 
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -209,7 +236,7 @@ function getExchangeInfo() {
           if (data && data['retCode'] === "200") {
             const {userRemainScore, exchageRate} = data.result
             console.log(`当前用户兑换比率${exchageRate}`)
-            if (exchageRate === 1.4 && userRemainScore >= scoreToBeans) {
+            if (parseInt(userRemainScore) >= scoreToBeans) {
               console.log(`已达到最大比率，去兑换`)
               await exchange()
             }
@@ -242,6 +269,9 @@ function exchange() {
             console.log(`兑换成功，消耗${consumedUserScore}积分，获得${receivedJbeanNum}京豆`)
             $.msg($.name, ``, `京东账号${$.index} ${$.nickName}\n兑换成功，消耗${consumedUserScore}积分，获得${receivedJbeanNum}京豆`);
             if ($.isNode()) await notify.sendNotify(`${$.name} - ${$.index} - ${$.nickName}`, `兑换成功，消耗${consumedUserScore}积分，获得${receivedJbeanNum}京豆`);
+          } else if (data['retCode'] === "323") {
+            console.log(`还木有到兑换时间哦~ `)
+            message += `还木有到兑换时间哦~ \n`
           } else {
             $.risk = true
             console.log(`账号被风控，无法参与活动`)
@@ -347,14 +377,14 @@ function shareCodesFormat() {
     if ($.shareCodesArr[$.index - 1]) {
       $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
     } else {
-    //  console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
+      console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
     //  const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
-   //   $.newShareCodes = inviteCodes[tempIndex].split('@');
+    //  $.newShareCodes = inviteCodes[tempIndex].split('@');
     }
    // const readShareCodeRes = await readShareCode();
-  //  if (readShareCodeRes && readShareCodeRes.code === 200) {
-  //    $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
-  //  }
+   // if (readShareCodeRes && readShareCodeRes.code === 200) {
+   //   $.newShareCodes = [...new Set([...$.newShareCodes, ...(readShareCodeRes.data || [])])];
+   // }
     console.log(`第${$.index}个京东账号将要助力的好友${JSON.stringify($.newShareCodes)}`)
     resolve();
   })
