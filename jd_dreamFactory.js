@@ -97,17 +97,17 @@ if ($.isNode()) {
       await jdDreamFactory()
     }
   }
-  for (let i = 0; i < cookiesArr.length; i++) {
-    if (cookiesArr[i]) {
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
-      console.log(`${$.UserName}去参加第一个cookie账号开的团`)
-      cookie = cookiesArr[i];
-      if ($.tuanIds.length > 0) {
-        await JoinTuan($.tuanIds[0]);
-      }
-      await joinLeaderTuan();//参团
-    }
-  }
+  //for (let i = 0; i < cookiesArr.length; i++) {
+   // if (cookiesArr[i]) {
+  //    $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
+  //    console.log(`${$.UserName}去参加第一个cookie账号开的团`)
+  //    cookie = cookiesArr[i];
+  //    if ($.tuanIds.length > 0) {
+  //      await JoinTuan($.tuanIds[0]);
+  //    }
+  //    await joinLeaderTuan();//参团
+  //  }
+  //}
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -119,7 +119,7 @@ if ($.isNode()) {
 async function jdDreamFactory() {
   await userInfo();
   await QueryFriendList();//查询今日招工情况以及剩余助力次数
-  // await joinLeaderTuan();//参团
+   await joinLeaderTuan();//参团
   await helpFriends();
   if (!$.unActive) return
   await getUserElectricity();
@@ -1058,7 +1058,7 @@ async function joinLeaderTuan() {
     }
   }
   $.tuanIdS = null;
-  if (!$.tuanIdS) await updateTuanIdsCDN('https://gitee.com/shylocks/updateTeam/raw/main/jd_updateFactoryTuanId.json');
+  if (!$.tuanIdS) await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/wanthigh/updateJDCode@master/jd_updateFactoryTuanId.json');
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
