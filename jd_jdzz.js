@@ -80,12 +80,12 @@ async function jdWish() {
   $.bean = 0
   $.tuan = null
   $.hasOpen = false
-  await getUserTuanInfo()
-  if (!$.tuan) {
-    await openTuan()
-    if ($.hasOpen) await getUserTuanInfo()
-  }
-  if ($.tuan) $.tuanList.push($.tuan)
+ // await getUserTuanInfo()
+//  if (!$.tuan) {
+//    await openTuan()
+ //   if ($.hasOpen) await getUserTuanInfo()
+ // }
+ // if ($.tuan) $.tuanList.push($.tuan)
 
   await helpFriends()
   await getUserInfo()
