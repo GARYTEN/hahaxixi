@@ -15,10 +15,7 @@ if ($.isNode()) {
 } else {
   cookiesArr.push(...[$.getdata('CookieJD'), $.getdata('CookieJD2')]);
 }
-const tok = undefined != process.env && undefined != process.env.PUTKEY &&JSON.stringify(process.env.PUTKEY).indexOf('be5026a8-08e5-40e3-9811-3470d9d7ffa0||63b343f1-e2fa-4a1d-b291-d9772dbb7545|||||b02bfc7c-28e9-4206-a385-a6ad44a60a6d')>-1?true:false;
-if (!tok) {
-process.exit(0);
-}
+
 const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
 
 !(async () => {
