@@ -490,10 +490,10 @@ async function helpFriends() {
         const assistFriendRes = await assistFriend(code);
         if (assistFriendRes && assistFriendRes['ret'] === 0) {
           console.log(`助力朋友：${code}成功，因一次只能助力一个，故跳出助力`)
-          break
+          //break
         } else if (assistFriendRes && assistFriendRes['ret'] === 11009) {
           console.log(`助力朋友[${code}]失败：${assistFriendRes.msg}，跳出助力`);
-          break
+          //break
         } else {
           console.log(`助力朋友[${code}]失败：${assistFriendRes.msg}`)
         }
