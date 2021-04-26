@@ -54,3 +54,8 @@ jobs:
           jdBusinessCircleJump: ${{ secrets.BUSINESS_CIRCLE_JUMP }}
           SUPERMARKET_SHARECODES: ${{ secrets.SUPERMARKET_SHARECODES }}
           jdSuperMarketLottery: ${{ secrets.SUPERMARKET_LOTTERY }}
+      - name: Delete workflow runs
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 1
