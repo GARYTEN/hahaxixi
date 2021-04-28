@@ -6,7 +6,7 @@ name: jd_cash
 on:
   workflow_dispatch:
   schedule:
-    - cron: '7 16 * * *'
+    - cron: '20 */4 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -51,6 +51,7 @@ jobs:
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
           JD_CASH_SHARECODES: ${{ secrets.JD_CASH_SHARECODES }}
+          CASH_EXCHANGE: ${{ secrets.CASH_EXCHANGE }}
       - name: Delete workflow runs
         uses: GitRML/delete-workflow-runs@main
         with:
