@@ -40,7 +40,7 @@ jobs:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN || github.event.client_payload.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID || github.event.client_payload.TG_USER_ID }}
           HEALTH_EXCHANGE: ${{ secrets.HEALTH_EXCHANGE || github.event.client_payload.HEALTH_EXCHANGE }}
-	  
+
       - name: Delete workflow runs
         uses: GitRML/delete-workflow-runs@main
         with:
