@@ -32,7 +32,7 @@ jobs:
           npm install
       - name: '运行 【母婴跳一跳】'
         run: |
-          node ./src/z_mother_jump.js
+          node z_mother_jump.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE || github.event.client_payload.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG || github.event.client_payload.JD_DEBUG }}
